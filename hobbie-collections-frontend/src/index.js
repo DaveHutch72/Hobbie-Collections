@@ -61,6 +61,26 @@ function attachClicks() {
     })
 }
 
+function addItemToHobby(id) {
+    main.innerHTML = ""
+    document.getElementById("new-hobby-form").innerHTML = ''
+    let formDiv = document.querySelector("#new-item-form")
+    let html = `
+    <form>
+    <input type="hidden" id="hobby-id" value="${id}">
+    <label>Name of Item: </label>
+    <input type="text" id="name"><br><br>
+    <label>Price: </label>
+    <input type="integer" id="price"><br><br>
+    <label>Do you own it? </label>
+    <input type="checkbox" id="owned"><br><br>
+    <input type="submit">
+    </form>
+    `
+    form.innerHTML = html
+    document.querySelector('form').addEventListener('submit', addItem)
+}
+
 async function displayHobby(e) {
     let id = e.target.dataset.id
     const data = await apiService.fetchHobby(id)
@@ -74,7 +94,7 @@ async function displayHobby(e) {
         `
         })
     }
-    document.getElementById('add-item-form').addEventListener('click', () => displayCreateForm(id))
+    document.getElementById('add-item-form').addEventListener('click', () => addItemToHobby(id))
 }
 
 init()
