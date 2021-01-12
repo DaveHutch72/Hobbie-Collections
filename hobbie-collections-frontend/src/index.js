@@ -27,15 +27,23 @@ function displayCreateHobbyForm() {
     <form>
         <label>Create New Hobby Type:</label>
         <input type="text" id="name"><br><br>
-        <input type="sumbit">
+        <input type="button" "value="Submit">
     </form
     `
     formDiv.innerHTML = html
     document.querySelector('form').addEventListener('submit', createHobby)
 }
 
-function createHobby() {
-
+async function createHobby(e) {
+    e.preventDefault()
+    let main = document.getElementById("main")
+    let hobby = {
+        name: e.target.querySelector("name").value
+    }
+    let data = await apiService.fetchAddHobby(hobby)
+    let newHobby = new Hobby(data)
+    main.innerHTML += newHobby.renderHobbies()
+    
 }
 
 init()

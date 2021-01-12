@@ -8,4 +8,11 @@ class ApiService {
         let data = await response.json()
         return data
     }
+
+
+    // async fetchHobby() {
+    //     let response = await fetch(this.baseURL + `/hobbies/${id}`)
+    //     let data = await response.json()
+    //     return data
+    // }
 }
