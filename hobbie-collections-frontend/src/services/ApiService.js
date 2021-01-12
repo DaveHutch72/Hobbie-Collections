@@ -9,7 +9,19 @@ class ApiService {
         return data
     }
 
-
+    async fetchAddHobby(hobby) {
+        let configObj = {
+            method: 'POST',
+            body: JSON.stringify(hobby),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        let response = await fetch(this.baseURL + '/hobbies', configObj)
+        let data = await response.json
+        return data
+    }
     // async fetchHobby() {
     //     let response = await fetch(this.baseURL + `/hobbies/${id}`)
     //     let data = await response.json()
