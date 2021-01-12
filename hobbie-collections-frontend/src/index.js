@@ -18,6 +18,7 @@ async function renderHobbies() {
         const newHobby = new Hobby(h) 
         main.innerHTML += newHobby.renderHobbies()
     })
+    attachClicksHobby()
 }
 
 function displayCreateHobbyForm() {
@@ -53,7 +54,12 @@ function attachClicksHobby() {
     })
 }
 
-
+function attachClicks() {
+    const items = document.querySelectorAll("li a")
+    items.forEach(item => {
+        item.addEventListener('click', displayItem)
+    })
+}
 
 async function displayHobby(e) {
     let id = e.target.dataset.id
