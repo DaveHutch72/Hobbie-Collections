@@ -27,7 +27,7 @@ function displayCreateHobbyForm() {
     <form>
         <label>Create New Hobby Type:</label>
         <input type="text" id="name"><br><br>
-        <input type="button" "value="Submit">
+        <input type="submit">
     </form
     `
     formDiv.innerHTML = html
@@ -43,7 +43,7 @@ async function createHobby(e) {
     let data = await apiService.fetchAddHobby(hobby)
     let newHobby = new Hobby(data)
     main.innerHTML += newHobby.renderHobbies()
-    
+    attachClicksHobby()
 }
 
 init()

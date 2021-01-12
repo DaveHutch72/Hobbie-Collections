@@ -19,12 +19,12 @@ class ApiService {
             }
         }
         let response = await fetch(this.baseURL + '/hobbies', configObj)
-        let data = await response.json
+        let data = await response.json()
         return data
     }
-    // async fetchHobby() {
-    //     let response = await fetch(this.baseURL + `/hobbies/${id}`)
-    //     let data = await response.json()
-    //     return data
-    // }
+     async fetchHobby() {
+         let response = await fetch(this.baseURL + `/hobbies/${id}`)
+         let data = await response.json()
+         return data
+     }
 }
