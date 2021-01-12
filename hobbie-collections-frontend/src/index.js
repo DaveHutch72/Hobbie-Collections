@@ -38,12 +38,35 @@ async function createHobby(e) {
     e.preventDefault()
     let main = document.getElementById("main")
     let hobby = {
-        name: e.target.querySelector("name").value
+        name: e.target.querySelector("#name").value
     }
     let data = await apiService.fetchAddHobby(hobby)
     let newHobby = new Hobby(data)
     main.innerHTML += newHobby.renderHobbies()
     attachClicksHobby()
+}
+
+function attachClicksHobby() {
+    const hobbies = document.querySelectorAll("li a")
+    hobbies.forEach(h => {
+        h.addEventListener('click', displayHobby)
+    })
+}
+
+async function displayHobby(e) {
+    let id = e.target.dataset.id
+    const data = await apiService.fetchHobby(id)
+    const hob = new Library(data)
+    main.innerHTML = hob.renderHobby()
+    if (hob.items) {
+        hob.items.forEach(item => {
+        main.innerHTML += `
+        <li><a href="#" data-id="${item.id}">${item.title}</a></li>
+        <br>
+        `
+        })
+    }
+    document.getElementById('add-item-form').addEventListener('click', () => displayCreateForm(id))
 }
 
 init()

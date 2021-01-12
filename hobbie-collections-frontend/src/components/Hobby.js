@@ -13,5 +13,12 @@ class Hobby {
         <br>
         `
     }
-
+    renderHobby() {
+        return `
+        <h4>${this.name}</h4>
+        <br>
+        <button type="button" id="add-item-form">Add Item</button>
+        <br><br>
+        `
+        }
 }
