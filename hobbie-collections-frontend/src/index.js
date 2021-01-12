@@ -15,11 +15,10 @@ function addEventListeners() {
     document.getElementById('hobbies').addEventListener('click', renderHobbies)
 }
 
-function renderHobbies() {
-    let main = document.getElementById('main')
-    fetch(BASE_URL + '/hobbies')
-    .then(res => res.json)
-    .then(hobbies => {
-        console.log(hobbies)
+async function renderHobbies() {
+    const hob = await apiService.fetchHobbies()
+    main.innerHTML = ""
+    hobb.map(hob => {
+        //add Hobbie class
     })
 }
