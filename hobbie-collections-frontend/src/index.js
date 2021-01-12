@@ -53,15 +53,17 @@ function attachClicksHobby() {
     })
 }
 
+
+
 async function displayHobby(e) {
     let id = e.target.dataset.id
     const data = await apiService.fetchHobby(id)
-    const hob = new Library(data)
+    const hob = new Hobby(data)
     main.innerHTML = hob.renderHobby()
     if (hob.items) {
         hob.items.forEach(item => {
         main.innerHTML += `
-        <li><a href="#" data-id="${item.id}">${item.title}</a></li>
+        <li><a href="#" data-id="${item.id}">${item.name}</a></li>
         <br>
         `
         })
