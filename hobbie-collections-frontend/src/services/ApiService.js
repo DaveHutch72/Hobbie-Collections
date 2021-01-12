@@ -5,7 +5,7 @@ class ApiService {
 
     async fetchHobbies() {
         let response = await fetch(this.baseURL + '/hobbies')
-        let data = await response.json
+        let data = await response.json()
         return data
     }
 }

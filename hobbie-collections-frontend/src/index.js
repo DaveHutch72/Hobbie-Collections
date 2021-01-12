@@ -1,14 +1,9 @@
-// const BASE_URL = 'http://localhost:3000'
-
-// window.addEventListener("DOMContentLoaded",() => {
-//     getHobbies()
-// })
-
 const apiService = new ApiService()
 let main = document.getElementById('main')
 
 const init = () => {
     addEventListeners()
+    renderHobbies()
 }
 
 function addEventListeners() {
@@ -16,9 +11,12 @@ function addEventListeners() {
 }
 
 async function renderHobbies() {
-    const hob = await apiService.fetchHobbies()
-    main.innerHTML = ""
-    hobb.map(hob => {
-        //add Hobbie class
+    const hobb = await apiService.fetchHobbies()
+    main.innerHTML = ''
+    hobb.map(h => {
+        const newHobby = new Hobby(h) 
+        main.innerHTML += newHobby.renderHobbies()
     })
 }
+
+init()
