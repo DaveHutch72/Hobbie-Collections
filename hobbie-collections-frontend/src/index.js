@@ -90,9 +90,10 @@ async function addItem(e) {
         price: e.target.querySelector("#price").value,
         owned: e.target.querySelector("#owned").checked
     }
-    let data = await apiService.fetchAddBook(item)
+    let data = await apiService.fetchAddItem(item)
     let newItem = new Item(data)
     main.innerHTML += newItem.render()
+    attachClicks()
 }
 
 async function displayHobby(e) {

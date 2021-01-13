@@ -27,4 +27,18 @@ class ApiService {
          let data = await response.json()
          return data
      }
+
+     async fetchAddItem(itemData) {
+         let configObj = {
+             method: 'POST',
+             body: JSON.stringify(itemData),
+             headers: {
+                 'Content-Type': 'application/json',
+                 'Accept': 'application/json'
+             }
+         }
+         let response = await fetch(this.baseURL + '/items', configObj)
+         let data = await response.json()
+         return data
+     }
 }

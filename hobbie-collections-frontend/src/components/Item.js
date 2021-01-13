@@ -7,4 +7,12 @@ class Item {
         this.hobby = data.hobby
     }
 
+    render() {
+        return `
+        <li>
+        <a href="#" data-id="${this.id}">${this.name}</a>      |       ${this.owned ? "Owned" : "Not purchased...yet"}
+        </li>
+        <br>
+        `
+    }
 }
