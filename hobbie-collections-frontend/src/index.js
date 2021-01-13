@@ -98,7 +98,9 @@ async function addItem(e) {
 
 async function displayItem(e) {
     let id = e.target.dataset.id
-    const data = await apiService.fetchItem
+    const data = await apiService.fetchItem(id)
+    const item = new Item(data)
+    main.innerHTML = item.renderItem()
 }
 
 async function displayHobby(e) {
