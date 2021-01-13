@@ -6,4 +6,5 @@ class Item {
         this.owned = data.owned
         this.hobby = data.hobby
     }
+
 }

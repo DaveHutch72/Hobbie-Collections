@@ -77,8 +77,22 @@ function addItemToHobby(id) {
     <input type="submit">
     </form>
     `
-    form.innerHTML = html
+    formDiv.innerHTML = html
     document.querySelector('form').addEventListener('submit', addItem)
+}
+
+async function addItem(e) {
+    e.preventDefault()
+    let main = document.getElementById("main")
+    let item = {
+        hobby_id: e.target.querySelector("#hobby-id").value,
+        name: e.target.querySelector("#name").value,
+        price: e.target.querySelector("#price").value,
+        owned: e.target.querySelector("#owned").checked
+    }
+    let data = await apiService.fetchAddBook(item)
+    let newItem = new Item(data)
+    main.innerHTML += newItem.render()
 }
 
 async function displayHobby(e) {
