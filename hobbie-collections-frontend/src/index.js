@@ -119,4 +119,11 @@ async function displayHobby(e) {
     document.getElementById('add-item-form').addEventListener('click', () => addItemToHobby(id))
 }
 
+function removeForm() {
+    let formDiv = document.querySelector("new-item-form")
+    let formDivHobby = document.querySelector("new-hobby-form")
+    formDiv.innerHTML = ""
+    formDivHobby.innerHTML = ""
+}
+
 init()
