@@ -45,6 +45,7 @@ async function createHobby(e) {
     let newHobby = new Hobby(data)
     main.innerHTML += newHobby.renderHobbies()
     attachClicksHobby()
+    removeForm()
 }
 
 function attachClicksHobby() {
@@ -94,6 +95,7 @@ async function addItem(e) {
     let newItem = new Item(data)
     main.innerHTML += newItem.render()
     attachClicks()
+    removeForm()
 }
 
 async function displayItem(e) {
@@ -117,6 +119,7 @@ async function displayHobby(e) {
         })
     }
     document.getElementById('add-item-form').addEventListener('click', () => addItemToHobby(id))
+    attachClicks()
 }
 
 function removeForm() {
