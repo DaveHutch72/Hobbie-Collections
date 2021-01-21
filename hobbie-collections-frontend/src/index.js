@@ -18,7 +18,15 @@ async function renderHobbies() {
         const newHobby = new Hobby(h) 
         main.innerHTML += newHobby.renderHobbies()
     })
+    //alphebetButton()
     attachClicksHobby()
+}
+
+//function alphebetButton() {
+//    const btn = document.createElement("button") 
+//
+//    btn.innerHTML = "Alphebatize";
+
 }
 
 function displayCreateHobbyForm() {
@@ -123,8 +131,8 @@ async function displayHobby(e) {
 }
 
 function removeForm() {
-    let formDiv = document.querySelector("new-item-form")
-    let formDivHobby = document.querySelector("new-hobby-form")
+    let formDiv = document.querySelector("#new-item-form")
+    let formDivHobby = document.querySelector("#new-hobby-form")
     formDiv.innerHTML = ""
     formDivHobby.innerHTML = ""
 }

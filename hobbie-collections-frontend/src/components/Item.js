@@ -19,7 +19,7 @@ class Item {
     renderItem() {
         return `
         <h4>${this.name}</h4>
-        <p>Cost: $ ${this.price}</p><br>
+        <p>Cost: $${this.price}</p><br>
         <p>${this.name} is in your ${this.hobby.name} category</p><br>
         <p>${this.owned ? "Owned" : "Not owned...yet"}<br>
         `

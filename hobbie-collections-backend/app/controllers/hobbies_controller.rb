@@ -3,9 +3,9 @@ class HobbiesController < ApplicationController
 
   # GET /hobbies
   def index
-    @hobbies = Hobby.all
+    hobbies = Hobby.all
 
-    render json: @hobbies
+    render json: hobbies
   end
 
   # GET /hobbies/1
