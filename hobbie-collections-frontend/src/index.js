@@ -1,36 +1,45 @@
 const apiService = new ApiService()
-let main = document.getElementById('main')
-
+const mainDivId = 'main';
+let main = document.getElementById(mainDivId)
+let hobbies = null;
 const init = () => {
     addEventListeners()
     renderHobbies()
 }
 
+
 function addEventListeners() {
     document.getElementById('hobbies').addEventListener('click', renderHobbies)
     document.getElementById('hobby-form').addEventListener('click', displayCreateHobbyForm)
+    document.getElementById('shorten').addEventListener('click', renderHobbiesShort)
+}
+
+function resetInnerHtml(id) {
+    document.getElementById(id).innerHTML = '';
+}
+
+async function getHobbies() {
+    const hobb = await apiService.fetchHobbies()
+    hobbies = new Hobbies(hobb)
 }
 
 async function renderHobbies() {
-    main.innerHTML = ''
-    const hobb = await apiService.fetchHobbies()
-    hobb.map(h => {
-        const newHobby = new Hobby(h) 
-        main.innerHTML += newHobby.renderHobbies()
-    })
-    //alphebetButton()
-    attachClicksHobby()
+    if (hobbies === null) {
+        await getHobbies()
+    }
+    hobbies.renderHobbies(mainDivId)
 }
 
-//function alphebetButton() {
-//    const btn = document.createElement("button") 
-//
-//    btn.innerHTML = "Alphebatize";
-
+async function renderHobbiesShort() {
+    resetInnerHtml(mainDivId)
+    if (hobbies === null) {
+        await getHobbies()
+    }
+    hobbies.renderHobbies(mainDivId, 5)
 }
 
 function displayCreateHobbyForm() {
-    main.innerHTML = ""
+    resetInnerHtml(mainDivId)
     let formDiv = document.querySelector("#new-hobby-form")
     let html = `
     <form>
@@ -51,16 +60,8 @@ async function createHobby(e) {
     }
     let data = await apiService.fetchAddHobby(hobby)
     let newHobby = new Hobby(data)
-    main.innerHTML += newHobby.renderHobbies()
-    attachClicksHobby()
+    newHobby.renderHobby(mainDivId, true)
     removeForm()
-}
-
-function attachClicksHobby() {
-    const hobbies = document.querySelectorAll("li a")
-    hobbies.forEach(h => {
-        h.addEventListener('click', displayHobby)
-    })
 }
 
 function attachClicks() {
@@ -104,30 +105,6 @@ async function addItem(e) {
     main.innerHTML += newItem.render()
     attachClicks()
     removeForm()
-}
-
-async function displayItem(e) {
-    let id = e.target.dataset.id
-    const data = await apiService.fetchItem(id)
-    const item = new Item(data)
-    main.innerHTML = item.renderItem()
-}
-
-async function displayHobby(e) {
-    let id = e.target.dataset.id
-    const data = await apiService.fetchHobby(id)
-    const hob = new Hobby(data)
-    main.innerHTML = hob.renderHobby()
-    if (hob.items) {
-        hob.items.forEach(item => {
-        main.innerHTML += `
-        <li><a href="#" data-id="${item.id}">${item.name}</a></li>
-        <br>
-        `
-        })
-    }
-    document.getElementById('add-item-form').addEventListener('click', () => addItemToHobby(id))
-    attachClicks()
 }
 
 function removeForm() {

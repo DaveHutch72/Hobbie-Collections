@@ -10,7 +10,7 @@ class Item {
     render() {
         return `
         <li>
-        <a href="#" data-id="${this.id}">${this.name}</a>      |       ${this.owned ? "Owned" : "Not purchased...yet"}
+        <a href="#" class='hobby-item-item' data-id="${this.id}">${this.name}</a>      |       ${this.owned ? "Owned" : "Not purchased...yet"}
         </li>
         <br>
         `
@@ -24,4 +24,18 @@ class Item {
         <p>${this.owned ? "Owned" : "Not owned...yet"}<br>
         `
     }
+
+    async displayItem(e, elementId) {
+        let id = e.target.dataset.id
+        const data = await apiService.fetchItem(id)
+        const item = new Item(data)
+        document.getElementById(elementId).innerHTML = item.renderItem()
+    }
+
+    attachHobbyItemClicks(id) {
+        const hobbyItems = document.querySelectorAll("li a.hobby-item-item")
+        hobbyItems.forEach(h => {
+            h.addEventListener('click', (e) => this.displayItem(e, id))
+        })
+    }//
 }
