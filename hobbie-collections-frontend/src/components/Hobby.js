@@ -1,9 +1,11 @@
 
 class Hobby {
     constructor(data) {
-        this.id = data.id
-        this.name = data.name
-        this.items = data.items.map(item => new Item(item));
+        if (data) {
+            this.id = data.id
+            this.name = data.name
+            this.items = data.items.map(item => new Item(item));
+        }
     }
 
     attachClicks(id) {
@@ -12,20 +14,48 @@ class Hobby {
             h.addEventListener('click', (e) => this.displayHobby(e, id))
         })
     }
+    
+    async createHobby(e) {
+        e.preventDefault()
+        let hobby = {
+            name: e.target.querySelector("#name").value
+        }
+        let data = await apiService.fetchAddHobby(hobby)
+        let newHobby = new Hobby(data)
+        newHobby.renderHobby('main', true)
+    }
+
+
+
+    removeForm() {
+        let formDivHobby = document.querySelector("#new-hobby-form")
+        formDivHobby.innerHTML = ""
+    }
+    
+    renderNewHobbyForm(id) {
+        document.getElementById(id).innerHTML = `
+        <form>
+            <label>Create New Hobby Type:</label>
+            <input type="text" id="name"><br><br>
+            <input type="submit">
+        </form
+        `
+        document.querySelector('form').addEventListener('submit', this.createHobby)
+    }
+
     async displayHobby(e, elementId) {
         let id = e.target.dataset.id
         const data = await apiService.fetchHobby(id)
         const hob = new Hobby(data)
         hob.renderHobbyDetails('main')
-        document.getElementById('add-item-form').addEventListener('click', () => addItemToHobby(elementId))
+        document.getElementById('add-item-form').addEventListener('click', () => new Item().renderAddItemToHobby(id))
         this.attachClicks()
     }
 
-
-    
-
     renderHobby(id, clear = false) {
         const element = document.getElementById(id)
+        this.removeForm()
+
         if (clear) {
             element.innerHTML = ''
         }
@@ -35,7 +65,7 @@ class Hobby {
         </li>
         <br>
         `
-        this.attachClicks(id)//transfer to Item in diff form
+        this.attachClicks(id)
     }
 
     renderHobbyDetails(id) {
